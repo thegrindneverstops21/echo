@@ -1,8 +1,15 @@
-import { RecordingPresets, type RecordingOptions } from "expo-audio";
+import {
+  getRecordingPermissionsAsync,
+  requestRecordingPermissionsAsync,
+} from "expo-audio";
 
-// Spike S02/S03: record straight into the persistent document directory.
-export const RECORDING_OPTIONS: RecordingOptions = {
-  ...RecordingPresets.HIGH_QUALITY,
-  directory: "document",
-  isMeteringEnabled: true,
-};
+export type MicAccess = "granted" | "denied" | "blocked";
+
+export async function ensureMicAccess(): Promise<MicAccess> {
+  const current = await getRecordingPermissionsAsync();
+  if (current.granted) return "granted";
+  if (!current.canAskAgain) return "blocked";
+  const asked = await requestRecordingPermissionsAsync();
+  if (asked.granted) return "granted";
+  return asked.canAskAgain ? "denied" : "blocked";
+}
