@@ -110,3 +110,19 @@ export async function listReady(): Promise<Recording[]> {
   );
   return rows.map(toRecording);
 }
+
+export const MAX_RECORDING_TITLE_LENGTH = 120;
+
+export async function renameRecording(id: string, title: string): Promise<void> {
+  const trimmed = title.trim();
+  if (!trimmed || trimmed.length > MAX_RECORDING_TITLE_LENGTH) {
+    throw new Error("Enter a title between 1 and 120 characters.");
+  }
+
+  const db = await getDatabase();
+  const result = await db.runAsync(
+    "UPDATE recordings SET title = ?, updated_at_ms = ? WHERE id = ? AND state = 'ready'",
+    [trimmed, Date.now(), id],
+  );
+  if (result.changes !== 1) throw new Error("This recording is no longer available.");
+}
