@@ -6,13 +6,14 @@ export function useLibrary() {
   const [items, setItems] = useState<Recording[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const reload = useCallback(async () => {
-    try {
-      setItems(await listReady());
-      setError(null);
-    } catch (cause) {
-      setError(toMessage(cause));
-    }
+  const reload = useCallback(() => {
+    return listReady().then(
+      (recordings) => {
+        setItems(recordings);
+        setError(null);
+      },
+      (cause) => setError(toMessage(cause)),
+    );
   }, []);
 
   useEffect(() => {
