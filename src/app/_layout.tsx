@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { ThemeProvider } from "../theme/ThemeProvider";
-import { useBootstrap } from "../app/useBootstrap";
+import { useBootstrap } from "../bootstrap/useBootstrap";
 import { Screen } from "../shared/ui/Screen";
 import { StatusBanner } from "../shared/ui/StatusBanner";
 
