@@ -1,33 +1,31 @@
 {
   "expo": {
-    "name": "echo",
+    "name": "ECHO",
     "slug": "echo",
-    "version": "1.0.0",
+    "version": "0.1.0",
+    "scheme": "echo",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "ios": {
-      "supportsTablet": true
-    },
+    "userInterfaceStyle": "automatic",
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      },
-      "predictiveBackGestureEnabled": false
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      "package": "com.echo.audiojournal",
+      "versionCode": 1,
+      "blockedPermissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "plugins": [
       "expo-router",
-      "expo-status-bar",
-      "expo-audio",
       "expo-sqlite",
-      "expo-font",
-      "expo-asset"
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "ECHO records audio only when you press Record.",
+          "recordAudioAndroid": true,
+          "enableBackgroundRecording": false,
+          "enableBackgroundPlayback": false
+        }
+      ]
     ]
   }
 }
