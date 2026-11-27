@@ -14,6 +14,7 @@ interface Props {
   positionMs: number;
   playerDurationMs: number;
   onToggle: () => void;
+  onRename: () => void;
   onSkip: (direction: 1 | -1) => void;
 }
 
@@ -32,7 +33,10 @@ export function RecordingRow(props: Props) {
         </AppText>
         {isActive ? <PlaybackStrip {...props} /> : null}
       </View>
-      <CompactAction label={verb} onPress={onToggle} />
+      <View style={styles.actions}>
+        <CompactAction label={verb} onPress={onToggle} />
+        <CompactAction label="Rename" onPress={props.onRename} />
+      </View>
     </View>
   );
 }
@@ -66,6 +70,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   text: { flex: 1, gap: SPACING.xs },
+  actions: { gap: SPACING.xs },
   strip: {
     flexDirection: "row",
     alignItems: "center",
